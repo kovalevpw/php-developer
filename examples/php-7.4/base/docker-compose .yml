@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  php:
+    image: docker.io/kovalevpw/php-developer:php-7.4
+    env_file:
+      - .env
+    user: "${UID}:${GID}"
+    environment:
+      PHP_IDE_CONFIG: "serverName=${COMPOSE_PROJECT_NAME}"
+      XDEBUG_CONFIG: "client_host=${XDEBUG_CLIENT_HOST}"
+    volumes:
+      - ./src:/src
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
