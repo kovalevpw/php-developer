@@ -1,11 +1,12 @@
 # Define build arguments
-ARG INSTALL_XDEBUG_VERSION=3.1.1 \
+ARG BASE_IMAGE \
+    INSTALL_XDEBUG_VERSION=3.1.1 \
     INSTALL_COMPOSER_VERSION=2.1.12 \
     INSTALL_MEMCACHED_VERSION=3.1.5 \
     INSTALL_IMAGICK_VERSION=3.6.0
 
 # Base image
-FROM php:7.4-fpm as base
+FROM $BASE_IMAGE as base
 
 ARG INSTALL_XDEBUG_VERSION \
     INSTALL_COMPOSER_VERSION
@@ -24,7 +25,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip \
     && docker-php-ext-install calendar \
-    && docker-php-source delete \
     && pecl install xdebug-$INSTALL_XDEBUG_VERSION \
     && docker-php-ext-enable xdebug \
     && docker-php-source delete \
