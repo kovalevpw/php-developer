@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   php:
-    image: docker.io/kovalevpw/php-developer:php-7.4
+    image: "${COMPOSE_PHP_IMAGE}"
     env_file:
       - .env
     user: "${UID}:${GID}"
