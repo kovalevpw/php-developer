@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && sed -i 's/expose_php = On/expose_php = Off/' /usr/local/etc/php/php.ini \
     && php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer --version=$INSTALL_COMPOSER_VERSION
 
-WORKDIR /src
+WORKDIR /app
 
 EXPOSE 9000/tcp
 
