@@ -34,7 +34,7 @@ jobs:
         name: Build Default image
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php-7.4-8.1
           target: base
           pull: true
           push: false
@@ -44,7 +44,7 @@ jobs:
         name: Build Yii2 image
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php-7.4-8.1
           target: yii2
           pull: true
           push: false
@@ -54,7 +54,7 @@ jobs:
         name: Push Default image
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php-7.4-8.1
           target: base
           pull: false
           push: true
@@ -65,7 +65,7 @@ jobs:
         name: Push Yii2 image
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php-7.4-8.1
           target: yii2
           pull: false
           push: true
