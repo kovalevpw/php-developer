@@ -13,6 +13,8 @@ services:
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
   memcached:
     image: memcached:1.6
+  redis:
+    image: redis:6.2
   mysql:
     image: mysql:8.0
     environment:
