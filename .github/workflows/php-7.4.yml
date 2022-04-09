@@ -51,6 +51,16 @@ jobs:
           build-args: BASE_IMAGE=php:7.4-fpm
           tags: kovalevpw/php-developer:php-7.4-yii2
       -
+        name: Build Laravel image
+        uses: docker/build-push-action@v2
+        with:
+          context: build/php-7.4-8.1
+          target: laravel
+          pull: true
+          push: false
+          build-args: BASE_IMAGE=php:7.4-fpm
+          tags: kovalevpw/php-developer:php-7.4-laravel
+      -
         name: Push Default image
         uses: docker/build-push-action@v2
         with:
@@ -71,4 +81,15 @@ jobs:
           push: true
           build-args: BASE_IMAGE=php:7.4-fpm
           tags: kovalevpw/php-developer:php-7.4-yii2
+        if: success() && github.ref == 'refs/heads/master'
+      -
+        name: Push Laravel image
+        uses: docker/build-push-action@v2
+        with:
+          context: build/php-7.4-8.1
+          target: laravel
+          pull: false
+          push: true
+          build-args: BASE_IMAGE=php:7.4-fpm
+          tags: kovalevpw/php-developer:php-7.4-laravel
         if: success() && github.ref == 'refs/heads/master'
