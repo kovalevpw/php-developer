@@ -1,9 +1,10 @@
 # Define build arguments
 ARG BASE_IMAGE \
-    INSTALL_XDEBUG_VERSION=3.1.3 \
-    INSTALL_COMPOSER_VERSION=2.2.6 \
-    INSTALL_MEMCACHED_VERSION=3.1.5 \
-    INSTALL_IMAGICK_VERSION=3.7.0
+    INSTALL_XDEBUG_VERSION=3.1.4 \
+    INSTALL_COMPOSER_VERSION=2.3.4 \
+    INSTALL_MEMCACHED_VERSION=3.2.0 \
+    INSTALL_IMAGICK_VERSION=3.7.0 \
+    INSTALL_REDIS_VERSION=5.3.7
 
 # Base image
 FROM $BASE_IMAGE as base
@@ -25,6 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip \
     && docker-php-ext-install calendar \
+    && docker-php-ext-install exif \
     && pecl install xdebug-$INSTALL_XDEBUG_VERSION \
     && docker-php-ext-enable xdebug \
     && docker-php-source delete \
@@ -70,4 +72,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-enable memcached \
     && pecl install imagick-$INSTALL_IMAGICK_VERSION \
     && docker-php-ext-enable imagick \
+    && docker-php-source delete
+
+# Laravel framework image
+FROM yii2 as laravel
+
+ARG INSTALL_REDIS_VERSION
+
+RUN pecl install redis-$INSTALL_REDIS_VERSION \
+    && docker-php-ext-enable redis \
+    && docker-php-ext-install bcmath \
     && docker-php-source delete
