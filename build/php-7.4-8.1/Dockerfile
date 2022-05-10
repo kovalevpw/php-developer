@@ -87,11 +87,6 @@ RUN pecl install redis-$INSTALL_REDIS_VERSION \
 # Supervisor image
 FROM laravel as supervisor
 
-RUN pecl install redis-$INSTALL_REDIS_VERSION \
-    && docker-php-ext-enable redis \
-    && docker-php-ext-install bcmath \
-    && docker-php-source delete \
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
         supervisor \
     && apt-get purge -y --auto-remove \
