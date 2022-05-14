@@ -31,65 +31,81 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build Default image
+        name: Build default
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.1
-          target: base
+          context: build/php-7.4-8.0
+          target: default
           pull: true
-          push: false
+          push: ${{ github.ref == 'refs/heads/master' }}
           build-args: BASE_IMAGE=php:8.0-fpm
-          tags: kovalevpw/php-developer:php-8.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
       -
-        name: Build Yii2 image
+        name: Build composer
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.1
-          target: yii2
+          context: build/php-7.4-8.0
+          target: composer
           pull: true
-          push: false
-          build-args: BASE_IMAGE=php:8.0-fpm
-          tags: kovalevpw/php-developer:php-8.0-yii2
+          push: ${{ github.ref == 'refs/heads/master' }}
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
       -
-        name: Build Laravel image
+        name: Build composer + supervisor
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.1
-          target: laravel
+          context: build/php-7.4-8.0
+          target: supervisor
           pull: true
-          push: false
-          build-args: BASE_IMAGE=php:8.0-fpm
-          tags: kovalevpw/php-developer:php-8.0-laravel
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor-composer
       -
-        name: Push Default image
+        name: Build composer + supervisor + debug
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.1
-          target: base
-          pull: false
-          push: true
-          build-args: BASE_IMAGE=php:8.0-fpm
-          tags: kovalevpw/php-developer:php-8.0
-        if: success() && github.ref == 'refs/heads/master'
+          context: build/php-7.4-8.0
+          target: debug
+          pull: true
+          push: ${{ github.ref == 'refs/heads/master' }}
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-supervisor-composer
       -
-        name: Push Yii2 image
+        name: Build composer + debug
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.1
-          target: yii2
-          pull: false
-          push: true
-          build-args: BASE_IMAGE=php:8.0-fpm
-          tags: kovalevpw/php-developer:php-8.0-yii2
-        if: success() && github.ref == 'refs/heads/master'
+          context: build/php-7.4-8.0
+          target: debug
+          pull: true
+          push: ${{ github.ref == 'refs/heads/master' }}
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-composer
       -
-        name: Push Laravel image
+        name: Build supervisor
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.1
-          target: laravel
-          pull: false
-          push: true
-          build-args: BASE_IMAGE=php:8.0-fpm
-          tags: kovalevpw/php-developer:php-8.0-laravel
-        if: success() && github.ref == 'refs/heads/master'
+          context: build/php-7.4-8.0
+          target: supervisor
+          pull: true
+          push: ${{ github.ref == 'refs/heads/master' }}
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor
+      -
+        name: Build supervisor + debug
+        uses: docker/build-push-action@v2
+        with:
+          context: build/php-7.4-8.0
+          target: debug
+          pull: true
+          push: ${{ github.ref == 'refs/heads/master' }}
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-supervisor
+      -
+        name: Build debug
+        uses: docker/build-push-action@v2
+        with:
+          context: build/php-7.4-8.0
+          target: debug
+          pull: true
+          push: ${{ github.ref == 'refs/heads/master' }}
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug
