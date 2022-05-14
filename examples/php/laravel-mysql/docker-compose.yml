@@ -11,6 +11,7 @@ services:
     volumes:
       - ./app:/app
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./docker/php/supervisor:/etc/supervisor/conf.d
   memcached:
     image: memcached:1.6
   redis:
