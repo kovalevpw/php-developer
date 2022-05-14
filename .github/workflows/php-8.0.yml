@@ -34,7 +34,7 @@ jobs:
         name: Build default
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: default
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
@@ -44,7 +44,7 @@ jobs:
         name: Build composer
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: composer
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
@@ -54,7 +54,7 @@ jobs:
         name: Build composer + supervisor
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: supervisor
           pull: true
           build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
@@ -63,7 +63,7 @@ jobs:
         name: Build composer + supervisor + debug
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
@@ -73,7 +73,7 @@ jobs:
         name: Build composer + debug
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
@@ -83,7 +83,7 @@ jobs:
         name: Build supervisor
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: supervisor
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
@@ -93,7 +93,7 @@ jobs:
         name: Build supervisor + debug
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
@@ -103,7 +103,7 @@ jobs:
         name: Build debug
         uses: docker/build-push-action@v2
         with:
-          context: build/php-7.4-8.0
+          context: build/php
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
