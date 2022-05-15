@@ -57,6 +57,7 @@ jobs:
           context: build/php
           target: supervisor
           pull: true
+          push: ${{ github.ref == 'refs/heads/master' }}
           build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-composer
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-supervisor-composer
       -
