@@ -67,7 +67,7 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
+          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor-composer
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-supervisor-composer
       -
         name: Build composer + debug
