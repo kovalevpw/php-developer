@@ -11,4 +11,3 @@ services:
     volumes:
       - ./app:/app
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
-      - ./docker/supervisor:/etc/supervisor/conf.d
