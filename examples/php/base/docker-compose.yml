@@ -9,5 +9,5 @@ services:
       PHP_IDE_CONFIG: "serverName=${COMPOSE_PROJECT_NAME}"
       XDEBUG_CONFIG: "client_host=${XDEBUG_CLIENT_HOST}"
     volumes:
-      - ./app:/app
+      - ./app:/var/www/html
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
