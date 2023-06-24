@@ -38,7 +38,8 @@ jobs:
           target: default
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=php:8.0-fpm
+          build-args: |
+            BASE_IMAGE=php:8.0-fpm
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
       -
         name: Build composer
@@ -48,7 +49,8 @@ jobs:
           target: composer
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
       -
         name: Build composer + supervisor
@@ -58,7 +60,8 @@ jobs:
           target: supervisor
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor-composer
       -
         name: Build composer + supervisor + debug
@@ -68,7 +71,8 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor-composer
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor-composer
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-supervisor-composer
       -
         name: Build composer + debug
@@ -78,7 +82,8 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-composer
       -
         name: Build supervisor
@@ -88,7 +93,8 @@ jobs:
           target: supervisor
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor
       -
         name: Build supervisor + debug
@@ -98,7 +104,8 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-supervisor
       -
         name: Build debug
@@ -108,5 +115,6 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug
