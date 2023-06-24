@@ -56,7 +56,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && sed -i 's/short_open_tag = Off/short_open_tag = On/' /usr/local/etc/php/php.ini \
     && sed -i 's/expose_php = On/expose_php = Off/' /usr/local/etc/php/php.ini 
 
-WORKDIR /app
+WORKDIR /var/www/html
 
 EXPOSE 9000/tcp
 
