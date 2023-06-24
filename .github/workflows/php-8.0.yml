@@ -17,22 +17,22 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build default
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: default
@@ -43,7 +43,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0
       -
         name: Build composer
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: composer
@@ -54,7 +54,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-composer
       -
         name: Build composer + supervisor
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: supervisor
@@ -65,7 +65,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor-composer
       -
         name: Build composer + supervisor + debug
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: debug
@@ -76,7 +76,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-supervisor-composer
       -
         name: Build composer + debug
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: debug
@@ -87,7 +87,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-composer
       -
         name: Build supervisor
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: supervisor
@@ -98,7 +98,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-supervisor
       -
         name: Build supervisor + debug
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: debug
@@ -109,7 +109,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-8.0-debug-supervisor
       -
         name: Build debug
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: build/php
           target: debug
