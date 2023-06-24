@@ -38,7 +38,9 @@ jobs:
           target: default
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=php:7.4-fpm
+          build-args: |
+            BASE_IMAGE=php:7.4-fpm
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4
       -
         name: Build composer
@@ -48,7 +50,9 @@ jobs:
           target: composer
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-composer
       -
         name: Build composer + supervisor
@@ -58,7 +62,9 @@ jobs:
           target: supervisor
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-composer
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-composer
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-supervisor-composer
       -
         name: Build composer + supervisor + debug
@@ -68,7 +74,9 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-supervisor-composer
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-supervisor-composer
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-debug-supervisor-composer
       -
         name: Build composer + debug
@@ -78,7 +86,9 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-composer
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-composer
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-debug-composer
       -
         name: Build supervisor
@@ -88,7 +98,9 @@ jobs:
           target: supervisor
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-supervisor
       -
         name: Build supervisor + debug
@@ -98,7 +110,9 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-supervisor
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-supervisor
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-debug-supervisor
       -
         name: Build debug
@@ -108,5 +122,7 @@ jobs:
           target: debug
           pull: true
           push: ${{ github.ref == 'refs/heads/master' }}
-          build-args: BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4
+          build-args: |
+            BASE_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4
+            INSTALL_XDEBUG_VERSION=3.1.6
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/php-developer:php-7.4-debug
