@@ -73,8 +73,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && sed -i 's|logfile=/var/log/supervisor/supervisord.log|logfile=/dev/null|' /etc/supervisor/supervisord.conf \
     && sed -i 's|pidfile=/var/run/supervisord.pid|pidfile=/dev/null|' /etc/supervisor/supervisord.conf \
-    && sed -i 's|[supervisord]|[supervisord]\nnodaemon=true|' /etc/supervisor/supervisord.conf \
-    && sed -i 's|[include]|[include]\n/etc/supervisor/php-fpm.conf|' /etc/supervisor/supervisord.conf
+    && sed -i 's|\[supervisord\]|[supervisord]\nnodaemon=true|' /etc/supervisor/supervisord.conf \
+    && sed -i 's|\[include\]|[include]\n/etc/supervisor/php-fpm.conf|' /etc/supervisor/supervisord.conf
 COPY php-fpm.conf /etc/supervisor/php-fpm.conf
 CMD ["supervisord"]
 
