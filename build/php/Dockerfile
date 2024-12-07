@@ -3,14 +3,14 @@ ARG BASE_IMAGE
 ARG INSTALL_XDEBUG_VERSION=3.4.0
 ARG INSTALL_COMPOSER_VERSION=2.8.3
 ARG INSTALL_MEMCACHED_VERSION=3.3.0
-#ARG INSTALL_IMAGICK_VERSION=3.7.0
+ARG INSTALL_IMAGICK_VERSION=3.7.0
 ARG INSTALL_REDIS_VERSION=6.1.0
 
 # Base image
 FROM $BASE_IMAGE as default
 
 ARG INSTALL_MEMCACHED_VERSION
-#ARG INSTALL_IMAGICK_VERSION
+ARG INSTALL_IMAGICK_VERSION
 ARG INSTALL_REDIS_VERSION
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         # For build memcached extension
         libmemcached-dev \
         # For build imagick extension
-#        libmagickwand-dev \
+        libmagickwand-dev \
     && apt-get purge -y --auto-remove \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip \
@@ -49,8 +49,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-enable memcached \
     && pecl install redis-$INSTALL_REDIS_VERSION \
     && docker-php-ext-enable redis \
-#    && pecl install imagick-$INSTALL_IMAGICK_VERSION \
-#    && docker-php-ext-enable imagick \
+    && pecl install imagick-$INSTALL_IMAGICK_VERSION \
+    && docker-php-ext-enable imagick \
     && docker-php-source delete \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     && sed -i 's/short_open_tag = Off/short_open_tag = On/' /usr/local/etc/php/php.ini \
