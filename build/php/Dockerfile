@@ -27,6 +27,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libpq-dev \
         # For build memcached extension
         libmemcached-dev \
+        # For build intl extension
+        libicu-dev \
     && apt-get purge -y --auto-remove \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip \
