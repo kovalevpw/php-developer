@@ -8,6 +8,17 @@ Docker container
 - `supervisor` - содержит менеджер процессов Supervisor (http://supervisord.org/)
 - `composer` - содержит пакетный менеджер Composer (https://getcomposer.org/) и систему управления версиями Git (https://git-scm.com/)
 
+### PHP 8.3
+
+- docker.io/kovalevpw/php-developer:php-8.3
+- docker.io/kovalevpw/php-developer:php-8.3-composer
+- docker.io/kovalevpw/php-developer:php-8.3-supervisor-composer
+- docker.io/kovalevpw/php-developer:php-8.3-debug-supervisor-composer
+- docker.io/kovalevpw/php-developer:php-8.3-debug-composer
+- docker.io/kovalevpw/php-developer:php-8.3-supervisor
+- docker.io/kovalevpw/php-developer:php-8.3-debug-supervisor
+- docker.io/kovalevpw/php-developer:php-8.3-debug
+
 ### PHP 8.2
 
 - docker.io/kovalevpw/php-developer:php-8.2
