@@ -7,10 +7,8 @@ ARG INSTALL_REDIS_VERSION=6.1.0
 
 # Base image
 FROM $BASE_IMAGE as default
-
 ARG INSTALL_MEMCACHED_VERSION
 ARG INSTALL_REDIS_VERSION
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
         # For build zip extension
         libzip-dev \
@@ -49,23 +47,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-enable redis \
     && docker-php-source delete \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
-    && sed -i 's/short_open_tag = Off/short_open_tag = On/' /usr/local/etc/php/php.ini \
-    && sed -i 's/expose_php = On/expose_php = Off/' /usr/local/etc/php/php.ini 
-
+    && sed -i 's|short_open_tag = Off|short_open_tag = On|' /usr/local/etc/php/php.ini \
+    && sed -i 's|expose_php = On|expose_php = Off|' /usr/local/etc/php/php.ini
 WORKDIR /var/www/html
-
 EXPOSE 9000/tcp
-
 
 # Image with composer
 FROM $BASE_IMAGE as composer
-
 ARG INSTALL_COMPOSER_VERSION
-
 ENV COMPOSER_HOME /tmp
-
 ADD https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer /tmp/composer-setup.php
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
         # For composer work
         unzip \
@@ -74,27 +65,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && php /tmp/composer-setup.php --install-dir=/usr/bin --filename=composer --version=$INSTALL_COMPOSER_VERSION 
 
-
 # Image with supervisor
 FROM $BASE_IMAGE as supervisor
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
       supervisor \
     && apt-get purge -y --auto-remove \
-    && rm -rf /var/lib/apt/lists/*
-
-#COPY supervisord.conf /etc/supervisor/supervisord.conf
-
+    && rm -rf /var/lib/apt/lists/* \
+    && sed -i 's|logfile=/var/log/supervisor/supervisord.log|logfile=/dev/null|' /etc/supervisor/supervisord.conf \
+    && sed -i 's|pidfile=/var/run/supervisord.pid|pidfile=/dev/null|' /etc/supervisor/supervisord.conf \
+    && sed -i 's|[supervisord]|[supervisord]\nnodaemon=true|' /etc/supervisor/supervisord.conf
+COPY php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
 CMD ["supervisord"]
-
 
 # Image with debug
 FROM $BASE_IMAGE as debug
-
 ARG INSTALL_XDEBUG_VERSION
-
 ENV COMPOSER_HOME /tmp
-
 RUN pecl install xdebug-$INSTALL_XDEBUG_VERSION \
     && docker-php-ext-enable xdebug \
     && docker-php-source delete
