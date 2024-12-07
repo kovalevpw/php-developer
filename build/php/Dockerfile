@@ -87,7 +87,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get purge -y --auto-remove \
     && rm -rf /var/lib/apt/lists/*
 
-COPY supervisord.conf /etc/supervisor/supervisord.conf
+#COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 CMD ["supervisord"]
 
